@@ -1,79 +1,81 @@
 <template>
-  <div>
     <div>
-      <div>
-        <div>
-          <label>Type de bien</label>
-          <select v-model="propertyType">
-            <option value="appartement">Appartement</option>
-            <option value="maison">Maison</option>
-          </select>
+      <div class="form-container">
+        <div class="flex-row">
+          <div class="form-group">
+            <label>Type de bien</label>
+            <select v-model="propertyType">
+              <option value="appartement">Appartement</option>
+              <option value="maison">Maison</option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label>Commune</label>
+            <select v-model="city">
+              <option value="">Sélectionner une commune</option>
+              <option v-for="cityName in Object.keys(donnesImmo)" 
+                      :key="cityName" 
+                      :value="cityName">
+                {{ cityName }}
+              </option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label>Surface (m²)</label>
+            <input
+              type="number"
+              min="0"
+              v-model="surface"
+              placeholder="Ex: 75"
+            />
+          </div>
         </div>
-
-        <div>
-          <label>Commune</label>
-          <select v-model="city">
-            <option value="">Sélectionner une commune</option>
-            <option v-for="cityName in Object.keys(donnesImmo)" 
-                    :key="cityName" 
-                    :value="cityName">
-              {{ cityName }}
-            </option>
-          </select>
+  
+        <div class="flex-row">
+          <div class="form-group">
+            <label>Nombre de pièces</label>
+            <input
+              type="number"
+              min="1"
+              v-model="rooms"
+              placeholder="Ex: 3"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label>Nombre de salles de bain</label>
+            <input
+              type="number"
+              min="1"
+              v-model="bathrooms"
+              placeholder="Ex: 1"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label>Âge du bien (années)</label>
+            <input
+              type="number"
+              min="0"
+              v-model="propertyAge"
+              placeholder="Ex: 15"
+            />
+          </div>
         </div>
-
-        <div>
-          <label>Surface (m²)</label>
-          <input
-            type="number"
-            min="0"
-            v-model="surface"
-            placeholder="Ex: 75"
-          />
+  
+        <button @click="calculatePrice">
+          Calculer l'estimation
+        </button>
+  
+        <div v-if="estimatedPrice">
+          <h3>Prix estimé</h3>
+          <p>{{ formatPrice(estimatedPrice) }} €</p>
         </div>
-
-        <div>
-          <label>Nombre de pièces</label>
-          <input
-            type="number"
-            min="1"
-            v-model="rooms"
-            placeholder="Ex: 3"
-          />
-        </div>
-
-        <div>
-          <label>Nombre de salles de bain</label>
-          <input
-            type="number"
-            min="1"
-            v-model="bathrooms"
-            placeholder="Ex: 1"
-          />
-        </div>
-
-        <div>
-          <label>Âge du bien (années)</label>
-          <input
-            type="number"
-            min="0"
-            v-model="propertyAge"
-            placeholder="Ex: 15"
-          />
-        </div>
-      </div>
-
-      <button @click="calculatePrice">
-        Calculer l'estimation
-      </button>
-
-      <div v-if="estimatedPrice">
-        <h3>Prix estimé</h3>
-        <p>{{ formatPrice(estimatedPrice) }} €</p>
       </div>
     </div>
-  </div>
-</template>
+  </template>
 
 <script>
 const donnesImmo = {
@@ -167,5 +169,28 @@ export default {
 </script>
 
 <style scoped>
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
 
+.flex-row {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+  gap: 10px;
+}
+
+button {
+  width: auto;
+  padding: 10px 20px;
+  margin: 0 auto; 
+  display: block; 
+}
 </style>
