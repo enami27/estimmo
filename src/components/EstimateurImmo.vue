@@ -236,6 +236,8 @@ export default {
   flex-direction: row;
   margin-right: 10px;
   gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
