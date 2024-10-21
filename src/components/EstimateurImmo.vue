@@ -1,5 +1,8 @@
 <template>
-    <div>
+<div class="outer-container">
+    <div class="main-container">
+        <img src="../assets/logo.png" class="logo" alt="logo"/>
+        <h1>Futur propriétaire, agent immobilier ou potentiel vendeur? Estimez votre bien immobilier dès maintenant</h1>
       <div class="form-container">
         <div class="flex-row">
           <div class="form-group">
@@ -66,14 +69,15 @@
         </div>
   
         <button @click="calculatePrice">
-          Calculer l'estimation
+          Estimer
         </button>
   
-        <div v-if="estimatedPrice">
+        <div v-if="estimatedPrice" class="resultat-prix">
           <h3>Prix estimé</h3>
           <p>{{ formatPrice(estimatedPrice) }} €</p>
         </div>
       </div>
+    </div>
     </div>
   </template>
 
@@ -122,11 +126,19 @@ export default {
   },
   methods: {
     calculatePrice() {
+    // verification des champs obligatoires
       if (!this.surface || !this.city || !this.propertyType) {
         alert('Veuillez remplir tous les champs obligatoires');
         return;
       }
-      
+
+      // contrainte : le nombre de salles de bains doit être inférieur au nombre de pièces
+      if (this.bathrooms >= this.rooms) {
+      alert('Le nombre de salles de bains doit être inférieur au nombre de pièces.');
+      return;
+    }
+    
+     // prix au m2 pour la ville et le type de bien sélectionnés
       const pricePerM2 = this.donnesImmo[this.city][this.propertyType];
       const basePrice = pricePerM2 * parseFloat(this.surface);
       
@@ -158,6 +170,7 @@ export default {
         else if (bathroomsNum >= 3) bathroomFactor = 1.1;  // Bonus de 10% pour 3 SDB ou plus
       }
       
+      // calcul du prix estimé
       const finalPrice = basePrice * roomFactor * ageFactor * bathroomFactor;
       this.estimatedPrice = Math.round(finalPrice);
     },
@@ -169,9 +182,47 @@ export default {
 </script>
 
 <style scoped>
+
+.resultat-prix {
+    text-align: center;
+}
+
+.resultat-prix h3 {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 5px; 
+}
+
+.resultat-prix p {
+    font-size: 48px; 
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;
+}
+
+
+.logo {
+    width: 500px;
+    height: auto;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 70px;
+  padding-left: 70px;
+  gap: 20px;
+}
 .form-container {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .flex-row {
@@ -189,8 +240,22 @@ export default {
 
 button {
   width: auto;
-  padding: 10px 20px;
-  margin: 0 auto; 
-  display: block; 
+  padding: 15px 30px;
+  margin: 0 auto;
+  display: block;
+  background-color: #330E0E; 
+  color: #E0D9CB; 
+  border: none; 
+  border-radius: 40px; 
+  font-size: 20px; 
+  cursor: pointer; 
+  transition: 0.4s;
+  font-weight: 700;
+
 }
+
+button:hover {
+  background-color: #621b1b; 
+}
+
 </style>
