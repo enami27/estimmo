@@ -258,4 +258,33 @@ button:hover {
   background-color: #621b1b; 
 }
 
+.form-group input,
+.form-group select {
+    border: 2px solid #330E0E; 
+    border-radius: 30px; 
+    background-color: #E0D9CB; 
+    padding: 10px; 
+    font-size: 16px; 
+    color: #330E0E; 
+    opacity: 0.6;
+
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder {
+    color: #330E0E;
+    opacity: 0.6;
+}
+
+.form-group select option {
+    color: #330E0E;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none; 
+    box-shadow: none; 
+}
+
+
 </style>
