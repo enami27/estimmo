@@ -167,30 +167,5 @@ export default {
 </script>
 
 <style scoped>
-div {
-  margin-bottom: 1rem;
-}
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-input, select {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
 </style>
